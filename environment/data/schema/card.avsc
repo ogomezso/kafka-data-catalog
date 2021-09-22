@@ -1,0 +1,23 @@
+{
+  "type" : "record",
+  "name" : "Card",
+  "namespace" : "schema",
+  "fields" : [ {
+    "name" : "productId",
+    "type" : "string",
+    "doc"  : "Id of the product"
+  }, {
+    "name" : "cardType",
+    "type" : "string",
+    "doc"  : "Type of card"
+  }, {
+    "name" : "pan",
+    "type" : "string",
+    "doc"  : "Pan ID of the card"
+  }, {
+    "name" : "clientId",
+    "type" : "string",
+    "doc"  : "Client ID (Country Code)"
+  }  ],
+  "doc:" : "Client Object"
+}
