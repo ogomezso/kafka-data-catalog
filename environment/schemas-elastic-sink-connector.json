@@ -1,0 +1,15 @@
+{
+  "name": "schemas-elasticsearch-sink-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "behavior.on.null.values": "IGNORE",
+    "tasks.max": "1",
+    "topics.regex": "_schemas",
+    "key.ignore": "true",
+    "schema.ignore": "true",
+    "connection.url": "http://elasticsearch:9200",
+    "name": "schemas-elasticsearch-sink"
+  }
+}

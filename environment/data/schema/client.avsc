@@ -1,0 +1,23 @@
+{
+  "type" : "record",
+  "name" : "Client",
+  "namespace" : "schema",
+  "fields" : [ {
+    "name" : "globalId",
+    "type" : "string",
+    "doc"  : "Client unique identifier for all systems"
+  }, {
+    "name" : "countryId",
+    "type" : "string",
+    "doc"  : "Client identifier within his/her local organization"
+  }, {
+    "name" : "Name",
+    "type" : "string",
+    "doc"  : "Client Name"
+  }, {
+    "name" : "Surname",
+    "type" : "string",
+    "doc"  : "Client Surname"
+  }  ],
+  "doc:" : "Client Object"
+}

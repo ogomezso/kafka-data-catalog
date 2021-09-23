@@ -1,0 +1,12 @@
+{
+  "name": "samples-elasticsearch-sink-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+    "behavior.on.null.values": "IGNORE",
+    "tasks.max": "1",
+    "topics.regex": "sgt.*",
+    "key.ignore": "true",
+    "connection.url": "http://elasticsearch:9200",
+    "name": "samples-elasticsearch-sink"
+  }
+}

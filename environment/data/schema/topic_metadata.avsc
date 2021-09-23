@@ -1,0 +1,32 @@
+{
+  "type" : "record",
+  "name" : "topic_metadata",
+  "namespace" : "schema",
+  "fields" : [{
+      "name" : "version",
+      "type" : "string",
+      "doc"  : "Metadata Version"
+    },{
+      "name" : "topic",
+      "type" : "string",
+      "doc"  : "Domain Topic"
+    },{
+    "name" : "domain",
+    "type" : "string",
+    "doc"  : "Domain that Topic belongs to"
+  }, {
+    "name" : "product",
+    "type" : "string",
+    "doc"  : "product to which the topic refers"
+  }, {
+    "name" : "owner_team",
+    "type" : "string",
+    "doc"  : "Team that owns the topic"
+  }, {
+    "name" : "owner_contact",
+    "type" : "string",
+    "doc"  : "Mailbox of the owner team"
+  }  ],
+  "doc:" : "Metadata of topic"
+}
+
