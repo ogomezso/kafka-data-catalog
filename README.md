@@ -1,1 +1,1 @@
-# kafka-schema-catalog-POC
+# Kafka Schema Catalog

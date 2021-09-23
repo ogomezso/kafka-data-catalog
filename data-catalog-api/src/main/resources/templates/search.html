@@ -1,0 +1,139 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Product Search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+
+<div class="card mb-3" style="max-width: 540px;">
+  <p class="text-info">Search Topic Medata</p>
+  <span class="border border-info">
+	<div class="input-group mb-3">
+	  <input type="text" class="form-control" placeholder="Search in Topic Metadata"
+           aria-label="Product Name" aria-describedby="btnNameSearch" id="productNamedesc">
+	  <div class="input-group-append">
+	    <button class="btn btn-outline-secondary" type="button" id="btnNameSearch">Search</button>
+	  </div>
+	</div>
+</span>
+</div>
+
+<div id="results" class="card"></div>
+<div id="schemas" class="card"></div>
+<div id="samples" class="card"></div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+<script th:inline="javascript">
+  $("#searchCriteria").value()
+  $(document).ready(function () {
+    $('#productNamedesc').autocomplete({
+          source: function (request, response) {
+            $.get("http://localhost:8080/suggestions?", {q: request.term}, function (data, status) {
+              $("#results").html("");
+              if (status == 'success') {
+                response(data);
+              }
+            });
+          }
+        }
+    );
+
+    $("#btnNameSearch").click(function () {
+      var inputText = $("#productNamedesc").val();
+      if (inputText.length == 0) {
+        alert("Enter product name or description");
+      } else {
+        var response = '';
+        $.ajax({
+          type: "GET",
+          url: "http://localhost:8080/metadata?q=" + inputText,
+          async: true,
+          success: function (resp) {
+            var len = resp.length;
+            var resultHtml = "";
+            if (len == 0) {
+              $("#results").html("<p class='text-danger'>Zero matches</p>");
+            } else {
+              resultHTML = "<p class='text-success'>" + len + " matches found.</p>";
+              resultHTML += "<ul class='list-unstyled'>";
+              for (var i = 0; i < len; i++) {
+                topicName = resp[i].topic
+                resultHTML += "<li onclick='loadTopicData(\"" + topicName + "\")' " +
+                    "style=\"cursor: pointer\">" + topicName + "</li>";
+                resultHTML += "<li>" + JSON.stringify(resp[i]) + "</li>";
+              }
+              resultHTML += "</ul>";
+              $("#results").html(resultHTML)
+            }
+          }
+        });
+      }
+    });
+  });
+
+  function loadTopicData(topicName) {
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8080/samples?index=" + topicName,
+      async: true,
+      success: function (resp) {
+        var len = resp.length;
+        var samplesHTML = "";
+        if (len == 0) {
+          $("#samples").html("<p class='text-danger'>Zero matches</p>");
+        } else {
+          samplesHTML = "<p class='text-info'> Topic Sample Data</p>";
+          samplesHTML += "<ul class='list-unstyled'>";
+          for (var i = 0; i < len; i++) {
+            samplesHTML += "<li>" + JSON.stringify(resp[i]) + "</li>";
+          }
+          samplesHTML += "</ul>";
+          $("#samples").html(samplesHTML)
+        }
+      }
+    });
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8080/schemas?subject=" + topicName + "-value",
+      async: true,
+      success: function (resp) {
+        var len = resp.length;
+        var schemaHTML = "";
+        if (len == 0) {
+          $("#schemas").html("<p class='text-danger'>Zero matches</p>");
+        } else {
+          schemaHTML = "<p class='text-info'> Topic Schema</p>";
+          schemaHTML += "<ul class='list-unstyled'>";
+          for (var i = 0; i < len; i++) {
+            schemaHTML += "<li>" + JSON.stringify(resp[i]) + "</li>";
+          }
+          schemaHTML += "</ul>";
+          $("#schemas").html(schemaHTML)
+        }
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
