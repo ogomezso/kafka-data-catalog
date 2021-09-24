@@ -1,0 +1,37 @@
+{
+  "type": "record",
+  "name": "CardPayment",
+  "namespace": "schema",
+  "fields": [
+    {
+      "name": "paymentType",
+      "type": "enum",
+      "symbols": [
+        "DEBIT",
+        "CREDIT"
+      ],
+      "doc": "Payment Type"
+    },
+    {
+      "name": "operationType",
+      "type": "enum",
+      "symbols": [
+        "WITHDRAWAL",
+        "DEBIT_PAYMENT",
+        "CREDIT,PAYMENT",
+      ],
+      "doc": "Payment Type"
+    },
+    {
+      "name": "pan",
+      "type": "string",
+      "doc": "Pan ID of the card"
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "doc": "Client ID (Country Code)"
+    }
+  ],
+  "doc:": "Card Payment Object"
+}

@@ -2,7 +2,7 @@
   "name": "card-datagen-connector",
   "config": {
     "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
-    "kafka.topic": "sgt.cards_topic",
+    "kafka.topic": "ste.cards_topic",
     "schema.filename": "/datagen-schemas/card.avsc",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.confluent.connect.avro.AvroConverter",

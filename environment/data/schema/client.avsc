@@ -11,11 +11,11 @@
     "type" : "string",
     "doc"  : "Client identifier within his/her local organization"
   }, {
-    "name" : "Name",
+    "name" : "name",
     "type" : "string",
     "doc"  : "Client Name"
   }, {
-    "name" : "Surname",
+    "name" : "surname",
     "type" : "string",
     "doc"  : "Client Surname"
   }  ],

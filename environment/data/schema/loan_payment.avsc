@@ -1,0 +1,38 @@
+{
+  "type": "record",
+  "name": "Loan",
+  "namespace": "schema",
+  "fields": [
+    {
+      "name": "productId",
+      "type": "string",
+      "doc": "Id of Loan product"
+    },
+    {
+      "name": "countryId",
+      "type": "string",
+      "doc": "Country Id of Loan product"
+    },
+    {
+      "name": "operationType",
+      "type": "enum",
+      "symbols": [
+        "TOTAL_AMORTIZATION",
+        "PARTIAL_AMORTIZATION",
+        "MONTHLY_FEE",
+      ],
+      "doc": "Operation Type"
+    },
+    {
+      "name": "amount",
+      "type": "string",
+      "doc": "Monthly Fee"
+    },
+    {
+      "name": "remainingAmount",
+      "type": "double",
+      "doc": "Remaing amount to pay"
+    }
+  ],
+  "doc:": "Loan Payment Object"
+}
