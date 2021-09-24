@@ -109,7 +109,12 @@
           samplesHTML += "</ul>";
           $("#samples").html(samplesHTML)
         }
-      }
+      },
+      error: function(xhr, error){
+        console.debug(xhr);
+        console.debug(error);
+        $("#samples").html("<p class='text-danger'>Zero matches</p>");
+      },
     });
     $.ajax({
       type: "GET",
@@ -129,7 +134,12 @@
           schemaHTML += "</ul>";
           $("#schemas").html(schemaHTML)
         }
-      }
+      },
+      error: function(xhr, error){
+        console.debug(xhr);
+        console.debug(error);
+        $("#schemas").html("<p class='text-danger'>Zero matches</p>");
+      },
     });
   }
 </script>
