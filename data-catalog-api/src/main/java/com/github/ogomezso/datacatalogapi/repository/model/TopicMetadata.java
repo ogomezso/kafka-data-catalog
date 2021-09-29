@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import lombok.Data;
 
-@Document(indexName = "data.santander.local.ops.data-catalog.topic-metadata")
+@Document(indexName = "#{@environment.getProperty('app.metadata-index')}")
 @Data
 public class TopicMetadata {
 
