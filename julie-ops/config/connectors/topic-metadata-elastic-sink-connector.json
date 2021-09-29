@@ -5,7 +5,6 @@
     "behavior.on.null.values": "IGNORE",
     "tasks.max": "1",
     "topics": "data.santander.local.ops.data-catalog.topic-metadata",
-    "connection.url": "http://elasticsearch:9200",
-    "name": "topic-metadata-elasticsearch-sink-connector"
+    "connection.url": "http://elasticsearch:9200"
   }
 }

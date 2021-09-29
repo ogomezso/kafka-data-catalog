@@ -1,9 +1,9 @@
 {
-  "name": "card-datagen-connector",
+  "name": "loan-payments-datagen-connector",
   "config": {
     "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
-    "kafka.topic": "ste.cards_topic",
-    "schema.filename": "/datagen-schemas/card.avsc",
+    "kafka.topic": "uk.santander.local.ops.loans.loan-payments",
+    "schema.filename": "/data/schemas/loan_payment.avsc",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.confluent.connect.avro.AvroConverter",
     "value.converter.schema.registry.url": "http://schema-registry:8081",

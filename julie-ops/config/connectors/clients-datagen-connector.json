@@ -1,9 +1,9 @@
 {
-  "name": "client-datagen-connector",
+  "name": "clients-payments-datagen-connector",
   "config": {
     "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
-    "kafka.topic": "ste.clients_topic",
-    "schema.filename": "/datagen-schemas/client.avsc",
+    "kafka.topic": "global.santander.local.ops.products.clients",
+    "schema.filename": "/data/schemas/client.avsc",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.confluent.connect.avro.AvroConverter",
     "value.converter.schema.registry.url": "http://schema-registry:8081",

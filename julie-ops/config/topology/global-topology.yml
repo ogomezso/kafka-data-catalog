@@ -11,7 +11,7 @@ projects:
         metadata:
           version: "1"
           topic: "global.santander.local.ops.products.cards"
-          topicDescription: "Card Products Information"
+          topicDescription: "Información básica relativa a los productos de tipo tarjeta"
           organization: "Santander"
           domain: "products"
           product: "card"
@@ -27,7 +27,7 @@ projects:
         metadata:
           version: "1"
           topic: "global.santander.local.ops.products.loans"
-          topicDescription: "Loan Products Information"
+          topicDescription: "Información básica sobre productos de crédito"
           organization: "Santander"
           domain: "products"
           product: "loans"
@@ -43,7 +43,7 @@ projects:
         metadata:
           version: "1"
           topic: "global.santander.local.ops.products.clients"
-          topicDescription: "Clients Basic Information and interactions"
+          topicDescription: "Client Basic Information and Interactions"
           organization: "Santander"
           domain: "clients"
           product: "client"
@@ -58,8 +58,8 @@ projects:
         metadataTopic: "data.santander.local.ops.data-catalog.topic-metadata"
         metadata:
           version: "1"
-          topic: "global.santander.local.ops.products.cards"
-          topicDescription: "Product Catalog"
+          topic: "global.santander.local.ops.products.product-catalog"
+          topicDescription: "Catálogo de Productos"
           organization: "Santander"
           domain: "products"
           product: "product-catalog"
@@ -70,3 +70,16 @@ projects:
         config:
           replication.factor: "1"
           num.partitions: "1"
+    connectors:
+      artifacts:
+        - path: "/config/connectors/cards-datagen-connector.json"
+          server: "connect"
+          name: "cards-datagen-connector"
+        - path: "/config/connectors/clients-datagen-connector.json"
+          server: "connect"
+          name: "clients-datagen-connector"
+        - path: "/config/connectors/loans-datagen-connector.json"
+          server: "connect"
+          name: "loans-datagen-connector"
+      access_control:
+        - principal: ""

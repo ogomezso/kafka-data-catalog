@@ -22,3 +22,10 @@ projects:
        config:
          replication.factor: "1"
          num.partitions: "1"
+    connectors:
+      artifacts:
+        - path: "/config/connectors/loan-payments-datagen-connector.json"
+          server: "connect"
+          name: "loan-payments-datagen-connector"
+      access_control:
+        - principal: ""

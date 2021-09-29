@@ -6,7 +6,6 @@
     "tasks.max": "1",
     "topics.regex": "global.*",
     "key.ignore": "true",
-    "connection.url": "http://elasticsearch:9200",
-    "name": "global-samples-elasticsearch-sink-connector"
+    "connection.url": "http://elasticsearch:9200"
   }
 }
