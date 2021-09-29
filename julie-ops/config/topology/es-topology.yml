@@ -11,7 +11,7 @@ projects:
         metadata:
           version: "1"
           topic: "es.santander.local.ops.cards.card-payments"
-          topicDescription: "ES Card Payment records"
+          topicDescription: "Registro de pago con Tarjeta en España"
           organization: "Santander"
           domain: "payments"
           product: "card"
@@ -22,3 +22,10 @@ projects:
         config:
           replication.factor: "1"
           num.partitions: "1"
+    connectors:
+      artifacts:
+        - path: "/config/connectors/card-payments-datagen-connector.json"
+          server: "connect"
+          name: "card-payments-datagen-connector"
+      access_control:
+        - principal: ""

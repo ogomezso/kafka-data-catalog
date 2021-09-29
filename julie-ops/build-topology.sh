@@ -30,4 +30,6 @@ docker run -t -i \
       purbon/kafka-topology-builder:latest \
       /bin/bash -c 'julie-ops-cli.sh --brokers broker:29092 --clientConfig /config/topology-builder.properties  --topology /config/topology/uk-topology.yml -quiet'
 
-python metadatapublisher/metadata_producer.py
+python $DIR/metadatapublisher/metadata_producer.py
+
+docker-compose exec connect /data/produce-test-products.sh
