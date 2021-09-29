@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MetadataSearchService {
 
-  private static final String TOPIC_METADATA_INDEX = "metadata_topic";
+  private static final String TOPIC_METADATA_INDEX = "data.santander.local.ops.data-catalog.topic-metadata";
 
   private final TopicMetadataRepository topicMetadataRepository;
   private final ElasticsearchOperations elasticsearchOperations;
@@ -83,7 +83,7 @@ public class MetadataSearchService {
     List<String> suggestions = new ArrayList<>();
 
     searchSuggestions.getSearchHits().forEach(searchHit->{
-      suggestions.add(searchHit.getContent().getProduct());
+      suggestions.add(searchHit.getContent().getTopic());
     });
     return new ArrayList<>(new HashSet<>(suggestions));
   }

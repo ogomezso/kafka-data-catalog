@@ -1,0 +1,72 @@
+---
+context: "global"
+company: "santander"
+env: "local"
+source: "ops"
+projects:
+  - name: "products"
+    topics:
+      - name: "cards"
+        metadataTopic: "data.santander.local.ops.data-catalog.topic-metadata"
+        metadata:
+          version: "1"
+          topic: "global.santander.local.ops.products.cards"
+          topicDescription: "Card Products Information"
+          organization: "Santander"
+          domain: "products"
+          product: "card"
+          ownerTeam: "card_squad"
+          ownerContact: "card_squad@mail.com"
+        schemas:
+          value.schema.file: "/config/schemas/card.avsc"
+        config:
+          replication.factor: "1"
+          num.partitions: "1"
+      - name: "loans"
+        metadataTopic: "data.santander.local.ops.data-catalog.topic-metadata"
+        metadata:
+          version: "1"
+          topic: "global.santander.local.ops.products.loans"
+          topicDescription: "Loan Products Information"
+          organization: "Santander"
+          domain: "products"
+          product: "loans"
+          ownerTeam: "loans_squad"
+          ownerContact: "loans_squad@mail.com"
+        schemas:
+          value.schema.file: "/config/schemas/loan.avsc"
+        config:
+          replication.factor: "1"
+          num.partitions: "1"
+      - name: "clients"
+        metadataTopic: "data.santander.local.ops.data-catalog.topic-metadata"
+        metadata:
+          version: "1"
+          topic: "global.santander.local.ops.products.clients"
+          topicDescription: "Clients Basic Information and interactions"
+          organization: "Santander"
+          domain: "clients"
+          product: "client"
+          ownerTeam: "client_squad"
+          ownerContact: "client_squad@mail.com"
+        schemas:
+          value.schema.file: "/config/schemas/client.avsc"
+        config:
+          replication.factor: "1"
+          num.partitions: "1"
+      - name: "product-catalog"
+        metadataTopic: "data.santander.local.ops.data-catalog.topic-metadata"
+        metadata:
+          version: "1"
+          topic: "global.santander.local.ops.products.cards"
+          topicDescription: "Product Catalog"
+          organization: "Santander"
+          domain: "products"
+          product: "product-catalog"
+          ownerTeam: "product_catalog_squad"
+          ownerContact: "product_catalog_squad@mail.com"
+        schemas:
+          value.schema.file: "/config/schemas/product.avsc"
+        config:
+          replication.factor: "1"
+          num.partitions: "1"

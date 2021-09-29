@@ -23,9 +23,6 @@
       "type": "string",
       "doc": "Organization that owns the data"
     },
-
-    familia (banca digital, etc)
-    servicio (internet, movil)
     {
       "name": "domain",
       "type": "string",

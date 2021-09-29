@@ -15,11 +15,7 @@
     },
     {
       "name": "cardType",
-      "type": "enum",
-      "symbols": [
-        "DEBIT",
-        "CREDIT"
-      ],
+      "type": "string",
       "doc": "Type of card"
     },
     {

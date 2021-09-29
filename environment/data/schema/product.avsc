@@ -1,0 +1,23 @@
+{
+  "type" : "record",
+  "name" : "Product",
+  "namespace" : "schema",
+  "fields" : [ {
+    "name" : "productId",
+    "type" : "string",
+    "doc"  : "Product unique identifier for all systems"
+  }, {
+    "name" : "countryId",
+    "type" : "string",
+    "doc"  : "Product identifier within his/her local organization"
+  }, {
+    "name" : "name",
+    "type" : "string",
+    "doc"  : "Product Name"
+  }, {
+    "name" : "productDescription",
+    "type" : "string",
+    "doc"  : "Product Description"
+  }  ],
+  "doc:" : "Product Object"
+}
