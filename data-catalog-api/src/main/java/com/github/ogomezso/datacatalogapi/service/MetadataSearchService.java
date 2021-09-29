@@ -4,6 +4,9 @@ package com.github.ogomezso.datacatalogapi.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -16,8 +19,9 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.github.ogomezso.datacatalogapi.repository.model.TopicMetadata;
+import com.github.ogomezso.datacatalogapi.config.AppConfig;
 import com.github.ogomezso.datacatalogapi.repository.TopicMetadataRepository;
+import com.github.ogomezso.datacatalogapi.repository.model.TopicMetadata;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MetadataSearchService {
 
-  private static final String TOPIC_METADATA_INDEX = "data.santander.local.ops.data-catalog.topic-metadata";
-
+  private final AppConfig config;
   private final TopicMetadataRepository topicMetadataRepository;
   private final ElasticsearchOperations elasticsearchOperations;
 
@@ -43,7 +46,7 @@ public class MetadataSearchService {
 
     QueryBuilder queryBuilder =
         QueryBuilders
-            .multiMatchQuery(query, "product","domain","topic")
+            .multiMatchQuery(query, String.valueOf(config.getSearchCriteria().getFields()))
             .fuzziness(Fuzziness.AUTO);
 
     Query searchQuery = new NativeSearchQueryBuilder()
@@ -53,7 +56,7 @@ public class MetadataSearchService {
     SearchHits<TopicMetadata> topicMetadataSearchHits =
         elasticsearchOperations
             .search(searchQuery, TopicMetadata.class,
-                IndexCoordinates.of(TOPIC_METADATA_INDEX));
+                IndexCoordinates.of(config.getMetadataIndex()));
 
     List<TopicMetadata> topicMetadataMatches = new ArrayList<TopicMetadata>();
     topicMetadataSearchHits.forEach(srchHit -> {
@@ -64,11 +67,15 @@ public class MetadataSearchService {
 
   public List<String> fetchSuggestions(String query) {
 
+    Map<String, Float> weightedFields = IntStream.range(0,
+            config.getSearchCriteria().getFields().size())
+        .boxed()
+        .collect(Collectors.toMap(config.getSearchCriteria().getFields()::get,
+            config.getSearchCriteria().getWeights()::get));
+
     QueryBuilder queryBuilder = QueryBuilders
-        .queryStringQuery("*"+query+"*")
-        .field("product")
-        .field("domain")
-        .field("topic");
+        .queryStringQuery("*" + query + "*")
+        .fields(weightedFields);
 
     Query searchQuery = new NativeSearchQueryBuilder()
         .withFilter(queryBuilder)
@@ -78,11 +85,11 @@ public class MetadataSearchService {
     SearchHits<TopicMetadata> searchSuggestions =
         elasticsearchOperations.search(searchQuery,
             TopicMetadata.class,
-            IndexCoordinates.of(TOPIC_METADATA_INDEX));
+            IndexCoordinates.of(config.getMetadataIndex()));
 
     List<String> suggestions = new ArrayList<>();
 
-    searchSuggestions.getSearchHits().forEach(searchHit->{
+    searchSuggestions.getSearchHits().forEach(searchHit -> {
       suggestions.add(searchHit.getContent().getTopic());
     });
     return new ArrayList<>(new HashSet<>(suggestions));
