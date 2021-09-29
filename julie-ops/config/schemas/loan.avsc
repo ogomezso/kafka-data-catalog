@@ -1,0 +1,38 @@
+{
+  "type": "record",
+  "name": "Loan",
+  "namespace": "schema",
+  "fields": [
+    {
+      "name": "productId",
+      "type": "string",
+      "doc": "Id of Loan product"
+    },
+    {
+      "name": "countryId",
+      "type": "string",
+      "doc": "Country Id of Loan product"
+    },
+    {
+      "name": "clientId",
+      "type": "string",
+      "doc": "Client ID (Country Code)"
+    },
+    {
+      "name": "paymentFee",
+      "type": "string",
+      "doc": "Monthly Fee"
+    },
+    {
+      "name": "totalAmount",
+      "type": "double",
+      "doc": "Loan Total Amount"
+    },
+    {
+      "name": "remainingAmount",
+      "type": "double",
+      "doc": "Remaing amount to pay"
+    }
+  ],
+  "doc:": "Loan Product Object"
+}

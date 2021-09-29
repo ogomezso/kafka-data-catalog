@@ -1,0 +1,24 @@
+---
+context: "uk"
+company: "santander"
+env: "local"
+source: "ops"
+projects:
+  - name: "loans"
+    topics:
+     - name: "loan-payments"
+       metadataTopic: "data.santander.local.ops.data-catalog.topic-metadata"
+       metadata:
+         version: "1"
+         topic: "uk.santander.local.ops.loans.loan-payments"
+         topicDescription: "Uk Payment records for loan products"
+         organization: "Santander"
+         domain: "payments"
+         product: "loan"
+         ownerTeam: "UK Loans Squad"
+         ownerContact: "uk_loans_squad@mail.com"
+       schemas:
+         value.schema.file: "/config/schemas/loan_payment.avsc"
+       config:
+         replication.factor: "1"
+         num.partitions: "1"

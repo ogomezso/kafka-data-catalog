@@ -1,0 +1,49 @@
+{
+  "type": "record",
+  "name": "topic_metadata",
+  "namespace": "schema",
+  "fields": [
+    {
+      "name": "version",
+      "type": "string",
+      "doc": "Metadata Version"
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "doc": "Domain Topic"
+    },
+    {
+      "name": "topicDescription",
+      "type": "string",
+      "doc": "Description of the topic purpose"
+    },
+    {
+      "name": "organization",
+      "type": "string",
+      "doc": "Organization that owns the data"
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "doc": "Domain that Topic belongs to"
+    },
+    {
+      "name": "product",
+      "type": "string",
+      "doc": "product to which the topic refers"
+    },
+    {
+      "name": "ownerTeam",
+      "type": "string",
+      "doc": "Team that owns the topic"
+    },
+    {
+      "name": "ownerContact",
+      "type": "string",
+      "doc": "Mailbox of the owner team"
+    }
+  ],
+  "doc:": "Metadata of topic"
+}
+

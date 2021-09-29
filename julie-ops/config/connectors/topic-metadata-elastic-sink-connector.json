@@ -1,12 +1,11 @@
 {
-  "name": "samples-elasticsearch-sink-connector",
+  "name": "topic-metadata-elasticsearch-sink-connector",
   "config": {
     "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
     "behavior.on.null.values": "IGNORE",
     "tasks.max": "1",
-    "topics.regex": "sgt.*",
-    "key.ignore": "true",
+    "topics": "data.santander.local.ops.data-catalog.topic-metadata",
     "connection.url": "http://elasticsearch:9200",
-    "name": "samples-elasticsearch-sink"
+    "name": "topic-metadata-elasticsearch-sink-connector"
   }
 }

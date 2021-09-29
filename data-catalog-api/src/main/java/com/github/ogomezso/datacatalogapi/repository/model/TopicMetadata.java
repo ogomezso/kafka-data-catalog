@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import lombok.Data;
 
-@Document(indexName = "topic_metadata")
+@Document(indexName = "data.santander.local.ops.data-catalog.topic-metadata")
 @Data
 public class TopicMetadata {
 
@@ -17,12 +17,16 @@ public class TopicMetadata {
   private String version;
   @Field(type = FieldType.Text, name = "topic")
   private String topic;
+  @Field(type = FieldType.Text, name = "topicDescription")
+  private String topicDescription;
+  @Field(type = FieldType.Text, name = "organization")
+  private String organization;
   @Field(type = FieldType.Text, name = "domain")
   private String domain;
   @Field(type = FieldType.Text, name = "product")
   private String product;
-  @Field(type = FieldType.Text, name = "owner_team")
+  @Field(type = FieldType.Text, name = "ownerTeam")
   private String ownerTeam;
-  @Field(type = FieldType.Text, name = "owner_contact")
+  @Field(type = FieldType.Text, name = "ownerContact")
   private String ownerContact;
 }

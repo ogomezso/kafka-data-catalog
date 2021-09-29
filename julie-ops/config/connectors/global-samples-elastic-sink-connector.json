@@ -1,11 +1,12 @@
 {
-  "name": "topic-metadata-elasticsearch-sink-connector",
+  "name": "global-samples-elasticsearch-sink-connector",
   "config": {
     "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
     "behavior.on.null.values": "IGNORE",
     "tasks.max": "1",
-    "topics": "metadata_topic",
+    "topics.regex": "global.*",
+    "key.ignore": "true",
     "connection.url": "http://elasticsearch:9200",
-    "name": "topic-metadata-elasticsearch-sink"
+    "name": "global-samples-elasticsearch-sink-connector"
   }
 }

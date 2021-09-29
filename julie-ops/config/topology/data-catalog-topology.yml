@@ -1,0 +1,24 @@
+---
+context: "data"
+company: "santander"
+env: "local"
+source: "ops"
+projects:
+  - name: "data-catalog"
+    topics:
+      - name: "topic-metadata"
+        schemas:
+          value.schema.file: "/config/schemas/topic_metadata.avsc"
+        config:
+          replication.factor: "1"
+          num.partitions: "1"
+    connectors:
+      artifacts:
+        - path: "/config/connectors/topic-metadata-elastic-sink-connector.json"
+          server: "connect"
+          name: "topic-metadata-elastic-sink-connector"
+        - path: "/config/connectors/schemas-elastic-sink-connector.json"
+          server: "connect"
+          name: "schemas-elastic-sink-connector"
+      access_control:
+        - principal: ""
