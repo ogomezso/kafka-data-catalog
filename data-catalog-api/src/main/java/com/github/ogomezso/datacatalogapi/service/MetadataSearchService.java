@@ -44,9 +44,10 @@ public class MetadataSearchService {
   public List<TopicMetadata> processSearch(final String query) {
     log.info("Search with query {}", query);
 
+    String[] fields = config.getSearchCriteria().getFields().toArray(new String[0]);
     QueryBuilder queryBuilder =
         QueryBuilders
-            .multiMatchQuery(query, String.valueOf(config.getSearchCriteria().getFields()))
+            .multiMatchQuery(query, fields)
             .fuzziness(Fuzziness.AUTO);
 
     Query searchQuery = new NativeSearchQueryBuilder()
