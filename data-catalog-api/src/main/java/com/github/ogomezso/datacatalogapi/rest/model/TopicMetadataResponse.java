@@ -9,6 +9,7 @@ public class TopicMetadataResponse {
 
   private String version;
   private String topic;
+  private String topicDescription;
   private String domain;
   private String product;
   private String ownerTeam;

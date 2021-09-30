@@ -1,4 +1,4 @@
-package com.github.ogomezso.datacatalogapi.repository.model;
+package com.github.ogomezso.datacatalogapi.elastic.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;

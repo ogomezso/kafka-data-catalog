@@ -1,6 +1,5 @@
-package com.github.ogomezso.datacatalogapi.repository.model;
+package com.github.ogomezso.datacatalogapi.elastic.model;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
