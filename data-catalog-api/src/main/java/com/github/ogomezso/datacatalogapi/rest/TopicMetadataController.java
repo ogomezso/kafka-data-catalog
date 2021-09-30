@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.ogomezso.datacatalogapi.repository.model.TopicMetadata;
+import com.github.ogomezso.datacatalogapi.elastic.model.TopicMetadata;
 import com.github.ogomezso.datacatalogapi.rest.model.TopicMetadataResponse;
-import com.github.ogomezso.datacatalogapi.service.MetadataSearchService;
+import com.github.ogomezso.datacatalogapi.elastic.service.MetadataSearchService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class TopicMetadataController {
 
   @GetMapping("/metadata")
   @ResponseBody
-  public List<TopicMetadataResponse> fetchByNameOrDesc(@RequestParam(value = "q", required = false) String query) {
+  public List<TopicMetadataResponse> fetchBySearchCriteria(@RequestParam(value = "q", required = false) String query) {
     log.info("searching by product {}",query);
     List<TopicMetadata> metadataByProduct = metadataSearchService.processSearch(query); ;
     log.info("products {}",metadataByProduct);
@@ -38,6 +38,7 @@ public class TopicMetadataController {
             .ownerTeam(topicMetadata.getOwnerTeam())
             .product(topicMetadata.getProduct())
             .topic(topicMetadata.getTopic())
+            .topicDescription(topicMetadata.getTopicDescription())
             .version(topicMetadata.getVersion())
             .build()
     ).collect(Collectors.toList());

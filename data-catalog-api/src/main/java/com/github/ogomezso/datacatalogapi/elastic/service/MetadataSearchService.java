@@ -1,4 +1,4 @@
-package com.github.ogomezso.datacatalogapi.service;
+package com.github.ogomezso.datacatalogapi.elastic.service;
 
 
 import java.util.ArrayList;
@@ -20,8 +20,9 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.github.ogomezso.datacatalogapi.config.AppConfig;
-import com.github.ogomezso.datacatalogapi.repository.TopicMetadataRepository;
-import com.github.ogomezso.datacatalogapi.repository.model.TopicMetadata;
+import com.github.ogomezso.datacatalogapi.config.SearchCriteria;
+import com.github.ogomezso.datacatalogapi.elastic.model.TopicMetadata;
+import com.github.ogomezso.datacatalogapi.elastic.repository.TopicMetadataRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +33,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MetadataSearchService {
 
   private final AppConfig config;
-  private final TopicMetadataRepository topicMetadataRepository;
   private final ElasticsearchOperations elasticsearchOperations;
+  private final SearchCriteria searchCriteria;
+  private final TopicMetadataRepository topicMetadataRepository;
 
   public List<TopicMetadata> fetchByProduct(final String product) {
 
@@ -44,12 +46,11 @@ public class MetadataSearchService {
   public List<TopicMetadata> processSearch(final String query) {
     log.info("Search with query {}", query);
 
-    String[] fields = config.getSearchCriteria().getFields().toArray(new String[0]);
-    QueryBuilder queryBuilder =
-        QueryBuilders
-            .multiMatchQuery(query, fields)
-            .fuzziness(Fuzziness.AUTO);
-
+    QueryBuilder queryBuilder = QueryBuilders
+        .queryStringQuery(query)
+        .fields(searchCriteria.getSearchCriteria())
+        .autoGenerateSynonymsPhraseQuery(true)
+        .fuzziness(Fuzziness.AUTO);
     Query searchQuery = new NativeSearchQueryBuilder()
         .withFilter(queryBuilder)
         .build();
@@ -68,15 +69,9 @@ public class MetadataSearchService {
 
   public List<String> fetchSuggestions(String query) {
 
-    Map<String, Float> weightedFields = IntStream.range(0,
-            config.getSearchCriteria().getFields().size())
-        .boxed()
-        .collect(Collectors.toMap(config.getSearchCriteria().getFields()::get,
-            config.getSearchCriteria().getWeights()::get));
 
     QueryBuilder queryBuilder = QueryBuilders
-        .queryStringQuery("*" + query + "*")
-        .fields(weightedFields);
+        .queryStringQuery("*" + query + "*");
 
     Query searchQuery = new NativeSearchQueryBuilder()
         .withFilter(queryBuilder)
@@ -90,9 +85,8 @@ public class MetadataSearchService {
 
     List<String> suggestions = new ArrayList<>();
 
-    searchSuggestions.getSearchHits().forEach(searchHit -> {
-      suggestions.add(searchHit.getContent().getTopic());
-    });
+    searchSuggestions.getSearchHits()
+        .forEach(searchHit -> suggestions.add(searchHit.getContent().getTopic()));
     return new ArrayList<>(new HashSet<>(suggestions));
   }
 }

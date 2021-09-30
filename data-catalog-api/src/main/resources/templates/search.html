@@ -19,10 +19,10 @@
   <p class="text-info">Search Topic Medata</p>
   <span class="border border-info">
 	<div class="input-group mb-3">
-	  <input type="text" class="form-control" placeholder="Search in Topic Metadata"
-           aria-label="Product Name" aria-describedby="btnNameSearch" id="productNamedesc">
+	  <input type="text" class="form-control" placeholder="Search Topic Metadata in"
+           aria-label="Product Name" aria-describedby="btnMetadataSearch" id="topicMetadataSearch">
 	  <div class="input-group-append">
-	    <button class="btn btn-outline-secondary" type="button" id="btnNameSearch">Search</button>
+      <button class="btn btn-outline-secondary" type="button" id="btnMetadataSearch">Search</button>
 	  </div>
 	</div>
 </span>
@@ -45,20 +45,22 @@
         crossorigin="anonymous"></script>
 <script th:inline="javascript">
   $(document).ready(function () {
-    $('#productNamedesc').autocomplete({
+    $('#topicMetadataSearch').autocomplete({
           source: function (request, response) {
             $.get("http://localhost:8080/suggestions?", {q: request.term}, function (data, status) {
               $("#results").html("");
+              $("#schemas").html("");
+              $("#samples").html("");
               if (status == 'success') {
                 response(data);
               }
             });
           }
+
         }
     );
-
-    $("#btnNameSearch").click(function () {
-      var inputText = $("#productNamedesc").val();
+    $("#btnMetadataSearch").click(function () {
+      var inputText = $("#topicMetadataSearch").val();
       if (inputText.length == 0) {
         alert("Type something");
       } else {
@@ -78,7 +80,8 @@
               for (var i = 0; i < len; i++) {
                 topicName = resp[i].topic
                 resultHTML += "<li onclick='loadTopicData(\"" + topicName + "\")' " +
-                    "style=\"cursor: pointer\">" + topicName + "</li>";
+                    "style=\"cursor: pointer; color: firebrick; text-decoration: firebrick\">"
+                    + topicName + "</li>";
                 resultHTML += "<li>" + JSON.stringify(resp[i]) + "</li>";
               }
               resultHTML += "</ul>";
@@ -110,7 +113,7 @@
           $("#samples").html(samplesHTML)
         }
       },
-      error: function(xhr, error){
+      error: function (xhr, error) {
         console.debug(xhr);
         console.debug(error);
         $("#samples").html("<p class='text-danger'>Zero matches</p>");
@@ -135,7 +138,7 @@
           $("#schemas").html(schemaHTML)
         }
       },
-      error: function(xhr, error){
+      error: function (xhr, error) {
         console.debug(xhr);
         console.debug(error);
         $("#schemas").html("<p class='text-danger'>Zero matches</p>");

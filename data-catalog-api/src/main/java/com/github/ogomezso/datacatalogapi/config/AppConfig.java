@@ -12,7 +12,7 @@ public class AppConfig {
 
   private String metadataIndex;
   private String schemasIndex;
-  private SearchCriteria searchCriteria;
+  private SearchData searchData;
 
 }
 

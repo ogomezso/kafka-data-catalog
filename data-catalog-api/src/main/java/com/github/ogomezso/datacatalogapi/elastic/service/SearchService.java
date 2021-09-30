@@ -1,4 +1,4 @@
-package com.github.ogomezso.datacatalogapi.service;
+package com.github.ogomezso.datacatalogapi.elastic.service;
 
 import java.util.ArrayList;
 import java.util.List;

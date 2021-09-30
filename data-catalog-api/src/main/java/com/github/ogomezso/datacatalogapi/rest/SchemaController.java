@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.ogomezso.datacatalogapi.repository.TopicSchemaRepository;
-import com.github.ogomezso.datacatalogapi.repository.model.TopicSchema;
+import com.github.ogomezso.datacatalogapi.elastic.repository.TopicSchemaRepository;
+import com.github.ogomezso.datacatalogapi.elastic.model.TopicSchema;
 import com.github.ogomezso.datacatalogapi.rest.model.TopicSchemaResponse;
 
 import lombok.RequiredArgsConstructor;

@@ -1,12 +1,14 @@
 app:
   metadata-index: data.santander.local.ops.data-catalog.topic-metadata
   schemas-index: schemas
-  search-criteria:
+  search-data:
     fields:
       - product
       - domain
       - topic
+      - topicDescription
     weights:
       - 0.20
       - 0.20
-      - 0.60
+      - 0.20
+      - 0.40
