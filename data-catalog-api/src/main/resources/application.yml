@@ -1,14 +1,16 @@
 app:
-  metadata-index: data.santander.local.ops.data-catalog.topic-metadata
+  metadata-index: data.bank.local.ops.data-catalog.topic-metadata
   schemas-index: schemas
   search-data:
     fields:
-      - product
-      - domain
       - topic
       - topicDescription
+      - product
+      - domain
+      - ownerTeam
     weights:
       - 0.20
       - 0.20
       - 0.20
-      - 0.40
+      - 0.20
+      - 0.20

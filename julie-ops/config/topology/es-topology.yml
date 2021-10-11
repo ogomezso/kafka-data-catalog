@@ -1,22 +1,22 @@
 ---
 context: "es"
-company: "santander"
+company: "bank"
 env: "local"
 source: "ops"
 projects:
   - name: "cards"
     topics:
       - name: "card-payments"
-        metadataTopic: "data.santander.local.ops.data-catalog.topic-metadata"
+        metadataTopic: "data.bank.local.ops.data-catalog.topic-metadata"
         metadata:
           version: "1"
-          topic: "es.santander.local.ops.cards.card-payments"
+          topic: "es.bank.local.ops.cards.card-payments"
           topicDescription: "Registro de pago con Tarjeta en España"
-          organization: "Santander"
+          organization: "bank"
           domain: "payments"
           product: "card"
-          ownerTeam: "ES Card Payments Squad"
-          ownerContact: "es_card_payments_squad@mail.com"
+          ownerTeam: "Card Squad España"
+          ownerContact: "es_card_squad@mail.com"
         schemas:
           value.schema.file: "/config/schemas/card_payment.avsc"
         config:

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.ogomezso.datacatalogapi.elastic.model.TopicMetadata;
-import com.github.ogomezso.datacatalogapi.rest.model.TopicMetadataResponse;
 import com.github.ogomezso.datacatalogapi.elastic.service.MetadataSearchService;
+import com.github.ogomezso.datacatalogapi.rest.model.TopicMetadataResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +26,11 @@ public class TopicMetadataController {
 
   @GetMapping("/metadata")
   @ResponseBody
-  public List<TopicMetadataResponse> fetchBySearchCriteria(@RequestParam(value = "q", required = false) String query) {
-    log.info("searching by product {}",query);
-    List<TopicMetadata> metadataByProduct = metadataSearchService.processSearch(query); ;
-    log.info("products {}",metadataByProduct);
+  public List<TopicMetadataResponse> fetchBySearchCriteria(
+      @RequestParam(value = "q", required = false) String query) {
+    log.info("searching by product {}", query);
+    List<TopicMetadata> metadataByProduct = metadataSearchService.processSearch(query);
+    log.info("products {}", metadataByProduct);
 
     return metadataByProduct.stream().map(
         topicMetadata -> TopicMetadataResponse.builder()
@@ -46,10 +47,11 @@ public class TopicMetadataController {
 
   @GetMapping("/suggestions")
   @ResponseBody
-  public List<String> fetchSuggestions(@RequestParam(value = "q", required = false) String query) {
-    log.info("fetch suggests {}",query);
-    List<String> suggests = metadataSearchService.fetchSuggestions(query);
-    log.info("suggests {}",suggests);
+  public List<String> fetchSuggestions(@RequestParam(value = "q", required = false) String query,
+      @RequestParam(value = "f", required = false) String field) {
+    log.info("fetch suggests {}", query);
+    List<String> suggests = metadataSearchService.fetchSuggestions(query, field);
+    log.info("suggests {}", suggests);
     return suggests;
   }
 }

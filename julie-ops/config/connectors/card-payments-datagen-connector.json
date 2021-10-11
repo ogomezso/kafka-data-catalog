@@ -2,7 +2,7 @@
   "name": "card-payments-datagen-connector",
   "config": {
     "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
-    "kafka.topic": "es.santander.local.ops.cards.card-payments",
+    "kafka.topic": "es.bank.local.ops.cards.card-payments",
     "schema.filename": "/data/schemas/card_payment.avsc",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.confluent.connect.avro.AvroConverter",

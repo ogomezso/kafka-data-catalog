@@ -1,5 +1,5 @@
 {
-  "name": "schemas-elasticsearch-sink-connector",
+  "name": "schemas-elastic-sink-connector",
   "config": {
     "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",

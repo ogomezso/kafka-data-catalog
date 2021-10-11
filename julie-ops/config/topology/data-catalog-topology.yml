@@ -1,6 +1,6 @@
 ---
 context: "data"
-company: "santander"
+company: "bank"
 env: "local"
 source: "ops"
 projects:
