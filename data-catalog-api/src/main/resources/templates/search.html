@@ -15,14 +15,23 @@
 </head>
 <body>
 
-<div class="card mb-3" style="max-width: 540px;">
+<div class="card mb-3" style="max-width: 960px;">
   <p class="text-info">Search Topic Medata</p>
   <span class="border border-info">
 	<div class="input-group mb-3">
 	  <input type="text" class="form-control" placeholder="Search Topic Metadata in"
-           aria-label="Product Name" aria-describedby="btnMetadataSearch" id="topicMetadataSearch">
+           aria-label="Topic Metadata Search" aria-describedby="btnMetadataSearch"
+           id="topicMetadataSearch">
+    <div class="input-group-append">
+      <select th:field="*{searchData}" id="fields">
+        <option th:each="field : ${searchData}"
+                th:value="${field}"
+                th:utext="${field}">
+        </option>
+      </select>
+    </div>
 	  <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button" id="btnMetadataSearch">Search</button>
+      <button class="btn btn-outline-secondary" type="button" id="btnMetadataSearch">Show</button>
 	  </div>
 	</div>
 </span>
@@ -47,7 +56,8 @@
   $(document).ready(function () {
     $('#topicMetadataSearch').autocomplete({
           source: function (request, response) {
-            $.get("http://localhost:8080/suggestions?", {q: request.term}, function (data, status) {
+            var fieldToSearch = $("#fields option:selected").text()
+            $.get("http://localhost:8080/suggestions?", {q: request.term, f: fieldToSearch}, function (data, status) {
               $("#results").html("");
               $("#schemas").html("");
               $("#samples").html("");
@@ -56,7 +66,6 @@
               }
             });
           }
-
         }
     );
     $("#btnMetadataSearch").click(function () {
@@ -79,7 +88,7 @@
               resultHTML += "<ul class='list-unstyled'>";
               for (var i = 0; i < len; i++) {
                 topicName = resp[i].topic
-                resultHTML += "<li onclick='loadTopicData(\"" + topicName + "\")' " +
+                resultHTML += "<li class='ui-button' onclick='loadTopicData(\"" + topicName + "\")' " +
                     "style=\"cursor: pointer; color: firebrick; text-decoration: firebrick\">"
                     + topicName + "</li>";
                 resultHTML += "<li>" + JSON.stringify(resp[i]) + "</li>";

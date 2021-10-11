@@ -1,5 +1,5 @@
 {
-  "name": "es-samples-elasticsearch-sink-connector",
+  "name": "es-samples-elastic-sink-connector",
   "config": {
     "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
     "behavior.on.null.values": "IGNORE",

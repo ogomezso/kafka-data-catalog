@@ -2,7 +2,7 @@
   "name": "loans-datagen-connector",
   "config": {
     "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
-    "kafka.topic": "global.santander.local.ops.products.loans",
+    "kafka.topic": "global.bank.local.ops.products.loans",
     "schema.filename": "/data/schemas/loan.avsc",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.confluent.connect.avro.AvroConverter",

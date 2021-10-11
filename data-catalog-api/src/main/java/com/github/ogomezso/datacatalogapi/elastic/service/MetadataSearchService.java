@@ -1,12 +1,12 @@
 package com.github.ogomezso.datacatalogapi.elastic.service;
 
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Optional;
 
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -67,8 +67,7 @@ public class MetadataSearchService {
     return topicMetadataMatches;
   }
 
-  public List<String> fetchSuggestions(String query) {
-
+  public List<String> fetchSuggestions(String query, String field) {
 
     QueryBuilder queryBuilder = QueryBuilders
         .queryStringQuery("*" + query + "*");
@@ -85,8 +84,27 @@ public class MetadataSearchService {
 
     List<String> suggestions = new ArrayList<>();
 
+    Method declaredMethod = getMethodName(field);
     searchSuggestions.getSearchHits()
-        .forEach(searchHit -> suggestions.add(searchHit.getContent().getTopic()));
+        .forEach(searchHit -> {
+          try {
+            String suggestion = (String) declaredMethod.invoke(searchHit.getContent());
+            suggestions.add(suggestion);
+          } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+          }
+        });
     return new ArrayList<>(new HashSet<>(suggestions));
+  }
+
+  private Method getMethodName(String field) {
+    Class<?> c = null;
+    try {
+      c = Class.forName(TopicMetadata.class.getName());
+      String methodName = field.substring(0, 1).toUpperCase() + field.substring(1);
+      return c.getDeclaredMethod("get" + methodName);
+    } catch (NoSuchMethodException | ClassNotFoundException e) {
+      throw new RuntimeException(e);
+    }
   }
 }
