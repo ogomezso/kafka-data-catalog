@@ -12,6 +12,7 @@ projects:
         config:
           replication.factor: "1"
           num.partitions: "1"
+          cleanup.policy: "compact"
     connectors:
       artifacts:
         - path: "/config/connectors/topic-metadata-elastic-sink-connector.json"

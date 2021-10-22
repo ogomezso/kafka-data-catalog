@@ -24,7 +24,8 @@ def get_topics_metadata(configPath):
                                                 'metadataTopic': topic.get(
                                                     'metadataTopic'),
                                                 'metadataKey': topic.get(
-                                                    'name'),
+                                                    'name') + '#v' + topic.get(
+                                                    'metadata').get('version'),
                                                 'topicMetadata': topic.get(
                                                     'metadata')
                                             }
@@ -32,5 +33,3 @@ def get_topics_metadata(configPath):
                                                 metadata_dict)
 
     return topics_metadata
-
-print(get_topics_metadata('/Users/ogomezsoriano/projects/confluent/kafka-data-catalog/julie-ops/config/topology'))
